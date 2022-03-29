@@ -1,0 +1,638 @@
+
+terminal len 0
+show run
+Cisco Nexus Operating System (NX-OS) Software
+TAC support: http://www.cisco.com/tac
+Copyright (C) 2002-2017, Cisco and/or its affiliates.
+All rights reserved.
+The copyrights to certain works contained in this software are
+owned by other third parties and used and distributed under their own
+licenses, such as open source.  This software is provided "as is," and unless
+otherwise stated, there is no warranty, express or implied, including but not
+limited to warranties of merchantability and fitness for a particular purpose.
+Certain components of this software are licensed under
+the GNU General Public License (GPL) version 2.0 or 
+GNU General Public License (GPL) version 3.0  or the GNU
+Lesser General Public License (LGPL) Version 2.1 or 
+Lesser General Public License (LGPL) Version 2.0. 
+A copy of each such license is available at
+http://www.opensource.org/licenses/gpl-2.0.php and
+http://opensource.org/licenses/gpl-3.0.html and
+http://www.opensource.org/licenses/lgpl-2.1.php and
+http://www.gnu.org/licenses/old-licenses/library.txt.
+NEXUS-N9K-RDC2# terminal len 0
+NEXUS-N9K-RDC2# show run
+
+!Command: show running-config
+!Time: Tue May 11 15:00:43 2021
+
+version 7.0(3)I7(1)
+hostname NEXUS-N9K-RDC2
+vdc NEXUS-N9K-RDC2 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource u4route-mem minimum 248 maximum 248
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+cfs eth distribute
+feature lacp
+feature vpc
+clock timezone CAT 2 0
+
+role name default-role
+  description This is a system defined role and applies to all users.
+username admin password 5 $5$9qcr1Z1K$L4WGVU2KaZWLxx1Sw17IfAMX5o1PVuJND6nWgrfRcX2  role network-admin
+
+banner motd #
+***W A R N I N G***
+THIS IS A PRIVATE COMPUTER SYSTEM.
+This computer system including all related equipment, network devices,
+are provided only for authorized use.
+All computer systems may be monitored for all lawful purposes, including
+those activities that are authorized for management of the system.
+All information including personal information, stored or sent over this
+system may be monitored.
+Uses of this system, authorized or unauthorized, constitutes consent to
+monitoring of this system.
+Unauthorized use may subject you to criminal prosecution.
+WARNING: Unauthorized access to this system is forbidden and will be
+prosecuted by law.
+By accessing this system, you agree that your actions may be monitored.
+#
+
+ssh login-attempts 10
+
+ssh key rsa 2048 
+ip domain-lookup
+ip domain-name mtn.co.rw
+ip name-server 10.150.11.155 10.150.12.40 10.150.61.240 10.150.155.11 use-vrf management
+vlan dot1Q tag native
+class-map type qos match-any GOLD
+  match cos 4
+  match dscp 26
+class-map type qos match-any SILVER
+  match cos 2
+  match dscp 16
+class-map type qos match-any PLATINUM
+  match cos 6
+  match dscp 48
+policy-map type qos NFS-DM-SET-QOS
+  class class-default
+    set cos 2
+    set dscp 16
+policy-map type qos interface_qos_policy
+  class GOLD
+    set qos-group 2
+  class PLATINUM
+    set qos-group 1
+  class SILVER
+    set qos-group 3
+policy-map type queuing system_queueing_policy
+  class type queuing c-out-q1
+    bandwidth percent 5
+  class type queuing c-out-q2
+    bandwidth percent 10
+  class type queuing c-out-q3
+    bandwidth percent 35
+  class type queuing c-out-q-default
+    bandwidth percent 50
+system qos
+  service-policy type queuing output system_queueing_policy
+copp profile strict
+snmp-server contact Louise Kalisa
+snmp-server user admin network-admin auth md5 0x831460205e03514701ad64cca427ce84 priv 0x831460205e03514701ad64cca427ce84 localizedkey
+snmp-server host 10.150.91.89 traps version 2c 2m2tuNd2
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+snmp-server enable traps callhome event-notify
+snmp-server enable traps callhome smtp-send-fail
+snmp-server enable traps cfs state-change-notif
+snmp-server enable traps cfs merge-failure
+snmp-server enable traps aaa server-state-change
+snmp-server enable traps feature-control FeatureOpStatusChange
+snmp-server enable traps sysmgr cseFailSwCoreNotifyExtended
+snmp-server enable traps config ccmCLIRunningConfigChanged
+snmp-server enable traps snmp authentication
+snmp-server enable traps link cisco-xcvr-mon-status-chg
+snmp-server enable traps vtp notifs
+snmp-server enable traps vtp vlancreate
+snmp-server enable traps vtp vlandelete
+snmp-server enable traps bridge newroot
+snmp-server enable traps bridge topologychange
+snmp-server enable traps stpx inconsistency
+snmp-server enable traps stpx root-inconsistency
+snmp-server enable traps stpx loop-inconsistency
+snmp-server enable traps system Clock-change-notification
+snmp-server enable traps feature-control ciscoFeatOpStatusChange
+snmp-server community 2m2tuNd2 group network-operator
+callhome
+  contract-id 201536196
+  site-id 1016814866
+  email-contact rwvce.RW@mtn.com
+  phone-contact +250788300856
+  streetaddress MTN Office Remera, Kigali
+  destination-profile CiscoTAC-1 email-addr callhome@cisco.com
+  destination-profile CiscoTAC-1 email-addr rwvce@mtn.com
+  destination-profile full_txt email-addr rwvce.RW@mtn.com
+  destination-profile short_txt email-addr rwvce.RW@mtn.com
+  transport email from rwvce@mtn.com
+  transport email reply-to rwvce.RW@mtn.com
+  transport email smtp-server mtn-co-rw.mail.protection.outlook.com port 25 use-vrf default
+  enable
+ntp server 10.150.12.40 use-vrf management
+ntp source 10.150.91.5
+
+vlan 1,12,19-20,51,60-62,75,83,85,87,89-90,92-100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,911,3014-3015
+vlan 12
+  name OLD_DR_SRVR
+vlan 19
+  name Dell_EMC
+vlan 51
+  name MANAGEMENT-VLAN
+vlan 60
+  name SRVR-RMR
+vlan 61
+  name SRVR_Farm_RMR
+vlan 62
+  name SOA
+vlan 75
+  name EBU-AAA-SERVER
+vlan 83
+  name RWRM-VASCLOUD-DB-83
+vlan 85
+  name RWRM-SMSFW-85
+vlan 87
+  name RWRM-SMSFW-87
+vlan 89
+  name UCC-Media
+vlan 90
+  name FRAUD_BUSTER
+vlan 92
+  name RM-ESXI-MANAGEMENT
+vlan 93
+  name RM-ESXI-VMOTION
+vlan 94
+  name RM-vBLK-ESXI-Replication
+vlan 95
+  name RM-DCN-DBs
+vlan 96
+  name RM-APPLICATION-SERVERS
+vlan 97
+  name RWRM-FLYTEXT-97
+vlan 98
+  name RWRM-UCC-OAM-98
+vlan 99
+  name RWRM-UCC-SIG-99
+vlan 100
+  name RWRM-UCC-Media-100
+vlan 102
+  name RWRM-CUST-ACCESS-102
+vlan 107
+  name vcesys-esx-ft
+vlan 110
+  name vcesys-esx-build
+vlan 120
+  name SFTP-VLAN
+vlan 191
+  name Dell__EMC
+vlan 192
+  name Dell_EMC_
+vlan 570
+  name UCC-EXT
+vlan 601
+  name MPBN_LB
+vlan 655
+  name MTN.COM
+vlan 832
+  name RWRM-VASCLOUD-APP-832
+vlan 852
+  name RWNY-VASCLOUD-SIGNALING-852
+vlan 899
+  name RM-IFW-PublicDMZ-2
+vlan 911
+  state suspend
+  name unused_port_security_vlan
+vlan 3014
+  name UCC
+vlan 3015
+  name UCC_
+
+no cdp enable
+spanning-tree port type edge bpduguard default
+spanning-tree port type edge bpdufilter default
+spanning-tree vlan 1-3967 priority 49152
+vrf context management
+  ip route 0.0.0.0/0 10.150.91.1
+vpc domain 214
+  peer-switch
+  role priority 16384
+  system-priority 8192
+  peer-keepalive destination 10.150.91.4 source 10.150.91.5
+  peer-gateway
+  auto-recovery
+  ipv6 nd synchronize
+  ip arp synchronize
+
+
+interface port-channel1
+  description To Customer Switch #1
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,90,92-98,100,102,120,191-192,570,601,621,655,832,842,899,2970,3014-3015
+  spanning-tree port type normal
+  speed 10000
+  mtu 9216
+  vpc 1
+
+interface port-channel2
+  description To Customer Switch #2
+  shutdown
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,51,60-62,90,92-96,601,842
+  spanning-tree port type normal
+  speed 10000
+  mtu 9216
+  negotiate auto
+  vpc 2
+
+interface port-channel3
+  description "VAS Cloud Signaling"
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 85
+  spanning-tree port type normal
+  speed 1000
+  mtu 9216
+  vpc 3
+
+interface port-channel37
+  description To AMP2 Server A
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 92,107,110
+  spanning-tree port type edge trunk
+  vpc 37
+
+interface port-channel50
+  description To VPC PEER
+  switchport
+  switchport mode trunk
+  spanning-tree port type network
+  vpc peer-link
+
+interface port-channel101
+  description To FI A
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input interface_qos_policy
+  vpc 101
+
+interface port-channel102
+  description To FI B
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input interface_qos_policy
+  vpc 102
+
+interface port-channel202
+  description To DPE (Unity 2.5) 1A
+  shutdown
+  switchport
+  switchport mode trunk
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input NFS-DM-SET-QOS
+  vpc 202
+
+interface port-channel203
+  description To DPE (Unity 2.5) 1B
+  shutdown
+  switchport
+  switchport mode trunk
+  spanning-tree port type edge trunk
+  mtu 9216
+  service-policy type qos input NFS-DM-SET-QOS
+  vpc 203
+
+interface Ethernet1/1
+  description 6248 1A-01:10
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  channel-group 101 mode active
+  no shutdown
+
+interface Ethernet1/2
+  description 6248 1B-01:10
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  channel-group 102 mode active
+  no shutdown
+
+interface Ethernet1/3
+  description 6248 1A-01:12
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  channel-group 101 mode active
+  no shutdown
+
+interface Ethernet1/4
+  description 6248 1B-01:12
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,89-90,92-98,100,102,107,110,120,191-192,570,601,621,655,832,842,852,899,3014-3015
+  spanning-tree port type edge trunk
+  mtu 9216
+  channel-group 102 mode active
+  no shutdown
+
+interface Ethernet1/5
+  description <<VAS CLOUD Signaling >>
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 85,89
+  spanning-tree port type edge trunk
+  duplex full
+  speed 1000
+  mtu 9216
+  no negotiate auto
+  no shutdown
+
+interface Ethernet1/6
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/7
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/8
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/9
+  description C220 M4 1A-03:02
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 92,107,110
+  channel-group 37
+  no shutdown
+
+interface Ethernet1/10
+  description DPE (Unity 2.5) 1A-00:05
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 202 mode active
+
+interface Ethernet1/11
+  description DPE (Unity 2.5) 1B-00:05
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 203 mode active
+
+interface Ethernet1/12
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/13
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/14
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/15
+  switchport
+  switchport mode trunk
+  no shutdown
+
+interface Ethernet1/16
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/17
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/18
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/19
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/20
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/21
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/22
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/23
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/24
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/25
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/26
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/27
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/28
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/29
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/30
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/31
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/32
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/33
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/34
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/35
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/36
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/37
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/38
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/39
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/40
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/41
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/42
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/43
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/44
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/45
+  description <<RM-B12-N7K-ACore-4:24>>
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,90,92-98,100,102,120,191-192,570,601,621,655,832,842,899,2970,3014-3015
+  speed 10000
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/46
+  description <<RM-B13-N7K-BCore-4:24>>
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,90,92-98,100,102,120,191-192,570,601,621,655,832,842,899,2970,3014-3015
+  speed 10000
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/47
+  description <<RM-B12-N7K-ACore-4:26>>
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,90,92-98,100,102,120,191-192,570,601,621,655,832,842,899,2970,3014-3015
+  speed 10000
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/48
+  description <<RM-B13-N7K-BCore-4:26>>
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 12,19-20,51,60-62,72,75,83,85,87,90,92-98,100,102,120,191-192,570,601,621,655,832,842,899,2970,3014-3015
+  speed 10000
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/49
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/50
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/51
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/52
+  switchport
+  switchport access vlan 911
+
+interface Ethernet1/53
+  description 93180YC-EX 1A-01:53
+  switchport
+  switchport mode trunk
+  channel-group 50 mode active
+  no shutdown
+
+interface Ethernet1/54
+  description 93180YC-EX 1A-01:54
+  switchport
+  switchport mode trunk
+  channel-group 50 mode active
+  no shutdown
+
+interface mgmt0
+  description 3172TQ 1B-01:02
+  vrf member management
+  ip address 10.150.91.5/24
+line console
+  exec-timeout 5
+line vty
+  session-limit 5
+  exec-timeout 5
+boot nxos bootflash:/nxos.7.0.3.I7.1.bin 
+no ip source-route
+ip tcp path-mtu-discovery
+logging logfile messages 6 size 16384
+logging server 10.150.91.89 6 use-vrf management facility local1
+logging timestamp milliseconds
+no logging monitor
+no logging console
+
+
+NEXUS-N9K-RDC2# 
