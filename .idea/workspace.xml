@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4196a5e-c238-4c15-8b78-f6d05f9f5c79" name="Default Changelist" comment="" />
+    <list default="true" id="f4196a5e-c238-4c15-8b78-f6d05f9f5c79" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.35" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.35.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.36" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/172.17.83.36.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dormant-report" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sftp_download.py" beforeDir="false" afterPath="$PROJECT_DIR$/sftp_download.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +24,17 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1m0R63HNicucMFkk1axlUqZk8Dp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,21 +46,21 @@
     <property name="last_opened_file_path" value="D:/Python/Locate Number/numberlocation.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.sftp_download">
-    <configuration name="fucntionadd" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="pythonProject1" />
+  <component name="RunManager" selected="Python.Ping_script">
+    <configuration name="Ping_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="D:/pythonProject" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fucntionadd.py" />
+      <option name="SCRIPT_NAME" value="D:/pythonProject/Ping_script.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,11 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Ping_script" />
         <item itemvalue="Python.sftp_download" />
         <item itemvalue="Python.input" />
         <item itemvalue="Python.while-loop" />
         <item itemvalue="Python.moves-list" />
-        <item itemvalue="Python.fucntionadd" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +208,8 @@
       <workItem from="1624910254570" duration="613000" />
       <workItem from="1625753781385" duration="699000" />
       <workItem from="1647422659096" duration="864000" />
-      <workItem from="1647437924991" duration="14864000" />
+      <workItem from="1647437924991" duration="18814000" />
+      <workItem from="1648548648263" duration="1880000" />
     </task>
     <servers />
   </component>
@@ -213,6 +234,6 @@
     <SUITE FILE_PATH="coverage/pythonProject1$fucntionadd.coverage" NAME="fucntionadd Coverage Results" MODIFIED="1647423149673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$main.coverage" NAME="main Coverage Results" MODIFIED="1608628448556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$numberlocation.coverage" NAME="numberlocation Coverage Results" MODIFIED="1624901896574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/Python/Locate Number" />
-    <SUITE FILE_PATH="coverage/pythonProject1$sftp_download.coverage" NAME="sftp_download Coverage Results" MODIFIED="1648019177494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject1$sftp_download.coverage" NAME="sftp_download Coverage Results" MODIFIED="1648027025191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

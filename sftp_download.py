@@ -1,7 +1,7 @@
 import paramiko
 
 #list of IPs
-IPs=["172.17.83.2","172.17.83.35","172.17.83.36",]
+IPs=["10.150.95.61","10.150.95.62","10.150.95.63","10.150.95.64","10.150.95.65","10.150.95.66"]
 
 
 
@@ -12,7 +12,7 @@ for ip in IPs:
         file_name=ip+".csv"
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(hostname=ip,username='rwadmin',password='Pr0jeCt@2018!',port=9052)
+        ssh.connect(hostname=ip,username='rwadmin',password='Exchange@2017!',port=9052)
         sftp_cient=ssh.open_sftp()
         sftp_cient.get('/home/rwadmin/dormant-report', file_name)
 
