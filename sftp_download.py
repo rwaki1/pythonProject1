@@ -3,10 +3,6 @@ import paramiko
 #list of IPs
 IPs=["10.150.95.61","10.150.95.62","10.150.95.63","10.150.95.64","10.150.95.65","10.150.95.66"]
 
-
-
-
-
 for ip in IPs:
     try:
         file_name=ip+".csv"
